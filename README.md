@@ -3,10 +3,8 @@
 </h1>
 
 <h3 align="center">
-  Ignite
+  Bitcoin Api - Controle de conta
 </h3>
-
-<p align="center">Bitcoin Api - Controle de conta</p>
 
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/sitiodigital/bitcoin-api?color=171000">
