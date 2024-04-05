@@ -34,7 +34,7 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 - [Bun](https://bun.sh/)
 - [Drizzle](https://orm.drizzle.team/)
-- [Elysiajs](https://elysiajs.com/)
+- [Fastify](https://fastify.dev/)
 - [Zod](https://zod.dev/)
 - [React Email](https://react.email/)
 - [Eslint](https://eslint.org/)
