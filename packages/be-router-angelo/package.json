@@ -1,0 +1,38 @@
+{
+  "name": "@olympus/be-router-angelo",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "Joisiney Leandro",
+  "license": "MIT",
+  "scripts": {
+    "start": "echo 'No start script defined'",
+    "start:dev": "echo 'No start:dev script defined'",
+    "build": "rm -rf dist && tsc && tsc-alias",
+    "lint": "eslint ./src --ext .ts,.tsx",
+    "lint:fix": "eslint ./src --ext .ts,.tsx --fix",
+    "reset": "rm -rf ./dist && rm -rf node_modules && rm -rf yarn.lock && rm -fr tsconfig.tsbuildinfo",
+    "clean": "rm -rf ./dist",
+    "coverage": "echo 'No build script found'"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.1",
+    "@olympus/lib-hera": "1.0.0",
+    "useragent": "^2.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@types/useragent": "^2.3.4",
+    "tsc-alias": "^1.8.8",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  },
+  "*exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.mjs",
+      "require": "./dist/src/index.js"
+    }
+  }
+}

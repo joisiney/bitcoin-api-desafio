@@ -1,0 +1,32 @@
+### 1. Criar usuário
+POST {{host}}/olympus/user HTTP/1.1
+content-type: application/json
+
+{
+    "id": "kcrm1op4asdbzlj4tyucsnls",
+    "name": "Jhon Doe",
+    "email": "jhon.doe@anydomain.com",
+    "password": "123456"
+}
+
+### 2. Consultar usuário por ID
+GET {{host}}/olympus/user/kcrm1op4asdbzlj4tyucsnls HTTP/1.1
+content-type: application/json
+
+### 3. Buscar todos os usuários com paginação
+GET {{host}}/olympus/user HTTP/1.1
+content-type: application/json
+x-page: 1
+x-take: 12
+
+### 4. Atualizar usuário
+PUT {{host}}/olympus/user/kcrm1op4asdbzlj4tyucsnls HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Jhon Doe 2"
+}
+
+### 5. Apagar usuário por ID
+DELETE {{host}}/olympus/user/kcrm1op4asdbzlj4tyucsnls HTTP/1.1
+content-type: application/json

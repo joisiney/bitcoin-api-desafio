@@ -1,0 +1,33 @@
+{
+  "name": "@olympus/test-kairos",
+  "version": "1.0.0",
+  "main": "src/utils/index.ts",
+  "author": "Joisiney Leandro",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint ./src --ext .ts,.tsx",
+    "lint:fix": "eslint ./src --ext .ts,.tsx --fix",
+    "reset": "rm -rf ./dist && rm -rf node_modules && rm -rf yarn.lock && rm -fr tsconfig.tsbuildinfo",
+    "start": " echo 'No start script defined'",
+    "build": "echo 'No build script defined'",
+    "start:dev": "echo 'No start:dev script defined'",
+    "clean": "echo 'No clean script defined'",
+    "coverage": "echo 'No clean script defined'"
+  },
+  "dependencies": {
+    "@olympus/domain-ceos": "1.0.0",
+    "@paralleldrive/cuid2": "^2.2.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
+  },
+  "*exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.mjs",
+      "require": "./dist/src/index.js"
+    }
+  }
+}
