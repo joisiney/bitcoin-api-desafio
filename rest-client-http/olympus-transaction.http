@@ -6,3 +6,7 @@ content-type: application/json
     "type": "income",
     "totalInCents": "1"
 }
+
+### 2. Consultar saldo por id do Usuário
+GET {{host}}/olympus/transaction/balance-by-customer/fpxqiasd2mc258ntkecu2h1c HTTP/1.1
+content-type: application/json

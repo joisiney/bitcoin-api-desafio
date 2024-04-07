@@ -38,7 +38,7 @@ export class TransactionRepositoryTypeDrizzle
     })
 
     if (!transaction) {
-      return new Left(new NotFoundException('Transaction not found'))
+      return new Left(new NotFoundException('Balance customer not found'))
     }
 
     const transactionMapper = new TransactionEntity(transaction)
