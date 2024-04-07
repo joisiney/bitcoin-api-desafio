@@ -1,4 +1,7 @@
-import { UserController } from '@/application/controllers'
+import {
+  TransactionController,
+  UserController,
+} from '@/application/controllers'
 import { AuthController } from '@/application/controllers/auth/index.controller'
 import {
   UserCreateUseCase,
@@ -8,6 +11,7 @@ import {
   UserUpdateByIdUseCase,
 } from '@/application/use-cases'
 import { AuthSignInUseCase } from '@/application/use-cases/auth/sign-in/index.use-case'
+import { TransactionCreateUseCase } from '@/application/use-cases/transactions'
 import { InjectorFactory } from '@olympus/be-di-ilitia'
 import {
   AddingRouteInScriptSingleton,
@@ -25,7 +29,10 @@ import {
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import 'reflect-metadata'
 import { env } from './config/env'
-import { UserRepositoryTypeDrizzle } from './repositories'
+import {
+  TransactionRepositoryTypeDrizzle,
+  UserRepositoryTypeDrizzle,
+} from './repositories'
 
 // BOOTSTRAP FASTIFY
 const app: FastifyInstance = Fastify({
@@ -74,17 +81,22 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
     InjectorFactory.resolve(UserRemoveByIdUseCase)
     InjectorFactory.resolve(UserUpdateByIdUseCase)
 
-    // USE_CASE USER
+    // USE_CASE AUTH
     InjectorFactory.resolve(AuthSignInUseCase)
+
+    // USE_CASE TRANSACION
+    InjectorFactory.resolve(TransactionCreateUseCase)
   }
   {
     // INJECTING NEWS REPOSITORY
     InjectorFactory.resolve(UserRepositoryTypeDrizzle)
+    InjectorFactory.resolve(TransactionRepositoryTypeDrizzle)
   }
   {
     // INJECTING NEWS CONTROLLER
     InjectorFactory.resolve(UserController)
     InjectorFactory.resolve(AuthController)
+    InjectorFactory.resolve(TransactionController)
   }
 }
 
