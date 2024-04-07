@@ -1,0 +1,46 @@
+{
+  "name": "@olympus/be-apolo",
+  "version": "1.0.0",
+  "description": "News Consumer",
+  "main": "src/infra/server.ts",
+  "author": "Joisiney Leandro",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "node --watch --trace-warnings --env-file=./.env --import tsx src/infra/server.ts",
+    "build": "rm -rf dist && tsc && tsc-alias",
+    "start": "node --env-file=./.env-development --import ./dist/src/infra/server.js",
+    "lint": "eslint ./ --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "docker-up": "docker-compose -f docker-compose.yml up --detach",
+    "docker-down": "docker-compose stop",
+    "reset": "rm -rf ./dist && rm -rf node_modules && rm -rf yarn.lock && rm -fr tsconfig.tsbuildinfo",
+    "clean": "rm -rf ./dist",
+    "coverage": "echo 'No build script found'",
+    "drizzle:migration-generate": "drizzle-kit generate:pg",
+    "drizzle:migration-run": "node --env-file=./.env --import tsx ./src/infra/database/drizzle/migrate.ts",
+    "drizzle:seed": "node --env-file=./.env --import tsx ./src/infra/database/drizzle/seed.ts"
+  },
+  "dependencies": {
+    "@olympus/be-di-ilitia": "1.0.0",
+    "@olympus/domain-ceos": "1.0.0",
+    "@olympus/lib-hera": "1.0.0",
+    "@olympus/test-kairos": "1.0.0",
+    "bcrypt": "^5.1.1",
+    "date-fns": "^3.3.1",
+    "fastify": "^4.26.0",
+    "fastify-plugin": "^4.5.1",
+    "mysql": "^2.18.1",
+    "stacktrace-js": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2"
+  },
+  "*exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.mjs",
+      "require": "./dist/src/index.js"
+    }
+  }
+}
