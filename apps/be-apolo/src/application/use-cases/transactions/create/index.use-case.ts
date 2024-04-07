@@ -9,12 +9,30 @@ export class TransactionCreateUseCase {
   ) {}
 
   async execute(props: ICreateUseCase) {
-    // Pegar o balanço do customerId e atualizar o balanceInCents se for income ou charge
     const news = await this.transactionRepository.create({
       ...props,
-      balanceInCents: 1,
+      balanceInCents: await this.getBalance(props),
     })
     if (news.isError) return news.launchError()
     return true
+  }
+
+  private async getBalance(props: ICreateUseCase) {
+    const lastBalance = await this.transactionRepository.balance(
+      props.customerId,
+    )
+
+    let balance
+    if (lastBalance.isSuccess) {
+      balance =
+        props.type == 'income'
+          ? lastBalance.value.balanceInCents + props.totalInCents
+          : lastBalance.value.balanceInCents - props.totalInCents
+    } else {
+      balance =
+        props.type == 'income' ? props.totalInCents : props.totalInCents * -1
+    }
+
+    return balance
   }
 }
