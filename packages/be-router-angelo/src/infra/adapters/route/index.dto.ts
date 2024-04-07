@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export namespace IRoute {
+export namespace IAngelo {
   export interface AddProps {
     method: string
     url: string
@@ -16,6 +16,6 @@ export namespace IRoute {
   ) => Promise<any>
 
   export interface Implements {
-    addRoute(props: IRoute.AddProps): void
+    addRoute(props: IAngelo.AddProps): void
   }
 }

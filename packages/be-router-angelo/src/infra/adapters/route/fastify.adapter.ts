@@ -1,5 +1,5 @@
 import { BaseAppAdapter } from '.'
-import { IRoute } from './index.dto'
+import { IAngelo } from './index.dto'
 
 export class FastifyAdapter<
     IApp extends { route: Function },
@@ -7,13 +7,13 @@ export class FastifyAdapter<
     IReply extends { status: any },
   >
   extends BaseAppAdapter
-  implements IRoute.Implements
+  implements IAngelo.Implements
 {
   constructor(private readonly app: IApp) {
     super()
   }
 
-  private handler(props: IRoute.AddProps) {
+  private handler(props: IAngelo.AddProps) {
     return async (request: IRequest, reply: IReply) => {
       try {
         if (props.propertyKey in props.target) {
@@ -32,7 +32,7 @@ export class FastifyAdapter<
     }
   }
 
-  public addRoute(props: IRoute.AddProps) {
+  public addRoute(props: IAngelo.AddProps) {
     this.app.route({
       method: props.method,
       url: props.url,

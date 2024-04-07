@@ -7,6 +7,7 @@ import {
   UserRemoveByIdUseCase,
   UserUpdateByIdUseCase,
 } from '@/application/use-cases'
+import { AuthGuardUseCase } from '@/application/use-cases/auth/guard/index.use-case'
 import { AuthSignInUseCase } from '@/application/use-cases/auth/sign-in/index.use-case'
 import { InjectorFactory } from '@olympus/be-di-ilitia'
 import {
@@ -22,6 +23,7 @@ import {
   fastifyResTriggerControllerPipe,
   routesInfo,
 } from '@olympus/be-router-angelo'
+import { SecurityService } from '@olympus/lib-hera'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import 'reflect-metadata'
 import { env } from './config/env'
@@ -67,6 +69,9 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
 // INJECTING NEWS MODULE
 {
   {
+    // SERVICES
+    InjectorFactory.resolve(SecurityService, { name: 'SECURITY_SERVICE' })
+
     // USE_CASE USER
     InjectorFactory.resolve(UserCreateUseCase)
     InjectorFactory.resolve(UserFindByIdUseCase)
@@ -74,8 +79,9 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
     InjectorFactory.resolve(UserRemoveByIdUseCase)
     InjectorFactory.resolve(UserUpdateByIdUseCase)
 
-    // USE_CASE USER
+    // USE_CASE AUTH
     InjectorFactory.resolve(AuthSignInUseCase)
+    InjectorFactory.resolve(AuthGuardUseCase)
   }
   {
     // INJECTING NEWS REPOSITORY

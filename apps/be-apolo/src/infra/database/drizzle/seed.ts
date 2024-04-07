@@ -1,4 +1,4 @@
-import { UserMockList } from '@olympus/test-kairos'
+import { UserMock, UserMockList } from '@olympus/test-kairos'
 import chalk from 'chalk'
 import { db } from './connection'
 import { users } from './schema'
@@ -14,7 +14,11 @@ const main = async () => {
    * Insert users
    */
   const usersMock = UserMockList(50)
-  await db.insert(users).values(usersMock)
+  const meUserMock = UserMock({
+    email: 'joisiney@gmail.com',
+    password: '123456',
+  })
+  await db.insert(users).values(usersMock.concat(meUserMock))
 
   console.log(chalk.dim('\t✔ Created user!'))
   console.log(chalk.bold.green('Database seeded! 😇'))

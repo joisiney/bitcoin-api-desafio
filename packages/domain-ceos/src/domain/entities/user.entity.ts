@@ -13,6 +13,9 @@ export class UserEntity {
   get id() {
     return this.data.id
   }
+  get password() {
+    return this.data.password
+  }
 
   get db() {
     return this.data

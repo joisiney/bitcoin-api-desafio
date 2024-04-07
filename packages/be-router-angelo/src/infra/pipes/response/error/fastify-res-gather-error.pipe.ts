@@ -1,4 +1,4 @@
-import { IRoute } from '../../../adapters/route/index.dto'
+import { IAngelo } from '../../../adapters/route/index.dto'
 const stackErrorParse = (stack: string) => {
   const regex = /at (\w+)\.(\w+) \(([^:]+):(\d+):(\d+)\)/g
   const matches = stack.matchAll(regex)
@@ -22,7 +22,7 @@ const stackErrorParse = (stack: string) => {
 export const fastifyResGatherErrorPipe = async (
   acc: any,
   error: Error,
-  { url, method }: IRoute.AddProps,
+  { url, method }: IAngelo.AddProps,
 ) => {
   const unionInfoRequest: any = {
     url,

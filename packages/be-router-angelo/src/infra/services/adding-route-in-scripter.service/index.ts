@@ -1,9 +1,9 @@
 import { InjectorFactory } from '@olympus/be-di-ilitia'
 import { findMetaData, urlFormat } from '../../../utils'
-import { IRoute } from '../../adapters/route/index.dto'
+import { IAngelo } from '../../adapters/route/index.dto'
 
 export class AddingRouteInScriptSingleton {
-  constructor(private readonly app: IRoute.Implements) {}
+  constructor(private readonly app: IAngelo.Implements) {}
 
   private create(target: any) {
     const path = findMetaData(target.constructor, 'path', [])
@@ -22,7 +22,7 @@ export class AddingRouteInScriptSingleton {
   }
 
   private static instance: AddingRouteInScriptSingleton
-  public static getInstance(app: IRoute.Implements) {
+  public static getInstance(app: IAngelo.Implements) {
     if (!AddingRouteInScriptSingleton.instance) {
       AddingRouteInScriptSingleton.instance =
         new AddingRouteInScriptSingleton(app)

@@ -1,5 +1,5 @@
 import { PipelineService } from '@olympus/lib-hera'
-import { IRoute } from './index.dto'
+import { IAngelo } from './index.dto'
 
 export class BaseAppAdapter {
   public reqPipeline = new PipelineService()
@@ -9,7 +9,7 @@ export class BaseAppAdapter {
   protected execute = async (
     request: any,
     reply: any,
-    props: IRoute.AddProps,
+    props: IAngelo.AddProps,
   ) => {
     const dataReq = await this.reqPipeline.execute({}, request, props)
     const response = await this.resPipeline.execute(dataReq, reply, props)
