@@ -1,14 +1,10 @@
-import { Controller, Route } from '@olympus/be-router-angelo'
+import { Injectable } from '@olympus/be-di-ilitia'
 
-@Controller('/olympus')
-export class BitcoinController {
+@Injectable({ dep: ['BITCOIN_REPOSITORY'] })
+export class BitcoinQuotationUseCase {
   constructor() {}
 
-  @Route({
-    method: 'GET',
-    url: '/bitcoin/quotation',
-  })
-  async quotation() {
+  async execute() {
     try {
       const response = await fetch(
         'https://www.mercadobitcoin.net/api/BTC/ticker/',

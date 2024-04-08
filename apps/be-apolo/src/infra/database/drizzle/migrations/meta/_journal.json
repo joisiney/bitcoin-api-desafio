@@ -29,6 +29,13 @@
       "when": 1712522036759,
       "tag": "0003_mushy_outlaw_kid",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1712596792674,
+      "tag": "0004_rich_texas_twister",
+      "breakpoints": true
     }
   ]
 }

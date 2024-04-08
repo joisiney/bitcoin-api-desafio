@@ -13,6 +13,7 @@ import {
 } from '@/application/use-cases'
 import { AuthGuardUseCase } from '@/application/use-cases/auth/guard/index.use-case'
 import { AuthSignInUseCase } from '@/application/use-cases/auth/sign-in/index.use-case'
+import { BitcoinQuotationUseCase } from '@/application/use-cases/bitcoins'
 import { TransactionCreateUseCase } from '@/application/use-cases/transactions'
 import { InjectorFactory } from '@olympus/be-di-ilitia'
 import {
@@ -95,6 +96,9 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
 
     // USE_CASE TRANSACTION
     InjectorFactory.resolve(TransactionCreateUseCase)
+
+    // USE_CASE BITCOIN
+    InjectorFactory.resolve(BitcoinQuotationUseCase)
   }
   {
     // INJECTING NEWS REPOSITORY
