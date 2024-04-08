@@ -13,13 +13,7 @@ export class TransactionFindByCustomerUseCase {
       return transaction.launchError()
     } else {
       return {
-        balance: (transaction.value.balanceInCents / 100).toLocaleString(
-          'pt-BR',
-          {
-            style: 'currency',
-            currency: 'BRL',
-          },
-        ),
+        balanceInCents: Number(transaction.value.balanceInCents),
       }
     }
   }

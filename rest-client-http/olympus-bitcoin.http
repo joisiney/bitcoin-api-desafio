@@ -1,3 +1,4 @@
 ### 1. Cotação atual bitcoin
 GET {{host}}/olympus/bitcoin/quotation HTTP/1.1
 content-type: application/json
+authorization: {{token}}

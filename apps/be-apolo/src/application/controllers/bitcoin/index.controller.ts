@@ -21,7 +21,11 @@ export class BitcoinController {
         const timestampInMilliseconds = +ticker.date * 1000
         ticker.date = new Date(timestampInMilliseconds)
       }
-      return { buy: ticker.buy, sell: ticker.sell, date: ticker.date }
+      return {
+        buy: Number(ticker.buy),
+        sell: Number(ticker.sell),
+        date: ticker.date,
+      }
     } catch (error) {
       throw new Error(`Error fetching BTC data: ${error}`)
     }
