@@ -20,7 +20,7 @@ export const transactions = pgTable('transactions', {
   type: transactionTypeEnum('type').default('income').notNull(),
   totalInCents: integer('total_in_cents').notNull(),
   balanceInCents: integer('balance_in_cents').notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export const transactionsRelations = relations(transactions, ({ one }) => ({

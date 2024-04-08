@@ -14,6 +14,10 @@ export class TransactionEntity {
     return this.data.id
   }
 
+  get balanceInCents() {
+    return this.data.balanceInCents
+  }
+
   get db() {
     return this.data
   }

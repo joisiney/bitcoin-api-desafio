@@ -1,4 +1,5 @@
 import {
+  BitcoinController,
   TransactionController,
   UserController,
 } from '@/application/controllers'
@@ -105,6 +106,7 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
     InjectorFactory.resolve(UserController)
     InjectorFactory.resolve(AuthController)
     InjectorFactory.resolve(TransactionController)
+    InjectorFactory.resolve(BitcoinController)
   }
 }
 
