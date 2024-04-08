@@ -2,3 +2,12 @@
 GET {{host}}/olympus/bitcoin/quotation HTTP/1.1
 content-type: application/json
 authorization: {{token}}
+
+### 1. Criar transação de compra
+POST {{host}}/olympus/bitcoin/buy HTTP/1.1
+content-type: application/json
+authorization: {{token}}
+
+{
+    "totalInCents": "100"
+}

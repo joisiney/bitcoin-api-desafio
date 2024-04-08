@@ -7,7 +7,7 @@
   "rest-client.environmentVariables": {
     "$shared": {
       "host": "http://localhost:3001",
-      "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZweHFpYXNkMm1jMjU4bnRrZWN1MmgxYyIsInR5cGUiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MTI1OTc2OTgsImV4cCI6MTcxMjYyNzY5OH0.N7b5MSBCew00fk_5OCCstAR6mRRFMc6gOdd0S7sF3lw"
+      "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZweHFpYXNkMm1jMjU4bnRrZWN1MmgxYyIsInR5cGUiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MTI2MDY5MTQsImV4cCI6MTcxMjYzNjkxNH0.YGuKiMSHbgihShkNGttxksE4YHqX7ldW_xFPt6AjFeA"
     }
   }
 }

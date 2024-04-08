@@ -14,6 +14,7 @@ import {
 import { AuthGuardUseCase } from '@/application/use-cases/auth/guard/index.use-case'
 import { AuthSignInUseCase } from '@/application/use-cases/auth/sign-in/index.use-case'
 import { BitcoinQuotationUseCase } from '@/application/use-cases/bitcoins'
+import { BitcoinBuyUseCase } from '@/application/use-cases/bitcoins/buy/index.use-case'
 import { TransactionCreateUseCase } from '@/application/use-cases/transactions'
 import { InjectorFactory } from '@olympus/be-di-ilitia'
 import {
@@ -30,11 +31,12 @@ import {
   fastifyResTriggerControllerPipe,
   routesInfo,
 } from '@olympus/be-router-angelo'
-import { SecurityService } from '@olympus/lib-hera'
+import { BitcoinGateway, SecurityService } from '@olympus/lib-hera'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import 'reflect-metadata'
 import { env } from './config/env'
 import {
+  BitcoinRepositoryTypeDrizzle,
   TransactionRepositoryTypeDrizzle,
   UserRepositoryTypeDrizzle,
 } from './repositories'
@@ -83,6 +85,9 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
     // SERVICES
     InjectorFactory.resolve(SecurityService, { name: 'SECURITY_SERVICE' })
 
+    // GATEWAYS
+    InjectorFactory.resolve(BitcoinGateway, { name: 'BITCOIN_GATEWAY' })
+
     // USE_CASE USER
     InjectorFactory.resolve(UserCreateUseCase)
     InjectorFactory.resolve(UserFindByIdUseCase)
@@ -99,11 +104,13 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
 
     // USE_CASE BITCOIN
     InjectorFactory.resolve(BitcoinQuotationUseCase)
+    InjectorFactory.resolve(BitcoinBuyUseCase)
   }
   {
     // INJECTING NEWS REPOSITORY
     InjectorFactory.resolve(UserRepositoryTypeDrizzle)
     InjectorFactory.resolve(TransactionRepositoryTypeDrizzle)
+    InjectorFactory.resolve(BitcoinRepositoryTypeDrizzle)
   }
   {
     // INJECTING NEWS CONTROLLER
