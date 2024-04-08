@@ -27,12 +27,13 @@ export class TransactionController {
     })
   }
 
+  @Guard({ dep: 'AuthGuardUseCase', dto: authDto, key: 'auth' })
   @Route({
     method: 'GET',
-    url: '/transaction/balance-by-customer/:customerId',
+    url: '/transaction/balance-by-customer',
     dto: customerIdDto,
   })
-  async balanceByCustomer({ customerId }: ICustomerIdDto) {
-    return this.findByCustomerUseCase.execute(customerId)
+  async balanceByCustomer({ auth }: ICustomerIdDto) {
+    return this.findByCustomerUseCase.execute(auth.id)
   }
 }

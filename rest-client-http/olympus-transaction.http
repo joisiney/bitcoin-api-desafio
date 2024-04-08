@@ -1,9 +1,15 @@
-### 1. Criar usuário
+### 1. Criar transação de entrada
 POST {{host}}/olympus/transaction HTTP/1.1
 content-type: application/json
 authorization: {{token}}
 
 {
-    "type": "income",
-    "totalInCents": 1
+    "type": "charge",
+    "totalInCents": 2
 }
+
+
+### 2. Consultar saldo por id do Usuário
+GET {{host}}/olympus/transaction/balance-by-customer HTTP/1.1
+content-type: application/json
+authorization: {{token}}

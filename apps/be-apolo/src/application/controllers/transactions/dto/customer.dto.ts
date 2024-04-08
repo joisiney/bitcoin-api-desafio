@@ -1,8 +1,9 @@
+import { IUserDto } from '@olympus/domain-ceos'
 import { z } from 'zod'
 
 export const customerIdDto = z.object({
-  customerId: z.string({
-    required_error: 'customerId é obrigatório',
-  }),
+  auth: z.unknown(),
 })
-export type ICustomerIdDto = z.output<typeof customerIdDto>
+export type ICustomerIdDto = Omit<z.output<typeof customerIdDto>, 'auth'> & {
+  auth: IUserDto
+}
