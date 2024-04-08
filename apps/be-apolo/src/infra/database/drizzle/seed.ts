@@ -15,6 +15,7 @@ const main = async () => {
    */
   const usersMock = UserMockList(50)
   const meUserMock = UserMock({
+    id: 'fpxqiasd2mc258ntkecu2h1c',
     email: 'joisiney@gmail.com',
     password: '123456',
   })

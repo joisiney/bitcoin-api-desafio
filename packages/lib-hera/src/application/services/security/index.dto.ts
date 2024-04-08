@@ -4,10 +4,14 @@ export namespace ISecurityService {
     secret: string
     expiresIn: number
   }
+  export interface BearerTokenProps {
+    auth: string
+    secret: string
+  }
   export interface Implements {
     compare(password: string, passwordHash: string): Promise<boolean>
     encrypt(value: string): string
     accessToken<T>(props: AccessTokenProps<T>): string
-    bearer<T>(authorization: string): T
+    bearerToken<T>(props: BearerTokenProps): T
   }
 }

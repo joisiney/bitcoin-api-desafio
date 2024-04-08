@@ -6,7 +6,8 @@
   },
   "rest-client.environmentVariables": {
     "$shared": {
-      "host": "http://localhost:3001"
+      "host": "http://localhost:3001",
+      "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZweHFpYXNkMm1jMjU4bnRrZWN1MmgxYyIsInR5cGUiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MTI1MTQyNjEsImV4cCI6MTcxMjU0NDI2MX0.SLyud3AKC_mK3BjhNMPizwqtutKPQIbp7KPkaHbm5D4"
     }
   }
 }

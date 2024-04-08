@@ -18,6 +18,7 @@ import {
   AddingRouteInScriptSingleton,
   FastifyAdapter,
   fastifyReqGatherDataPipe,
+  fastifyReqGuardPipe,
   fastifyReqParseUserAgentPipe,
   fastifyReqParseZodPipe,
   fastifyResGatherErrorPipe,
@@ -57,6 +58,7 @@ const fastifyRouterAdapter = new FastifyAdapter<
 fastifyRouterAdapter.reqPipeline.add(
   fastifyReqGatherDataPipe,
   fastifyReqParseUserAgentPipe,
+  fastifyReqGuardPipe,
   fastifyReqParseZodPipe,
 )
 

@@ -26,14 +26,16 @@ export class SecurityService implements ISecurityService.Implements {
     return accessToken
   }
 
-  public bearer<T>(authorization: string): T {
-    if (!authorization || authorization.length < 10) {
+  public bearerToken<T>({
+    auth,
+    secret,
+  }: ISecurityService.BearerTokenProps): T {
+    if (!auth || auth.length < 10) {
       throw new Error('Autenticação inválida')
     }
-    const [type, token] = authorization.split(' ')
-    if (type === 'Bearer') {
+    const [type, token] = auth.split(' ')
+    if (type.toLowerCase() === 'bearer') {
       try {
-        const secret = 'JWT_SECRET'
         const salt = verify(token, secret) as T & {
           id: string
         }

@@ -1,22 +1,8 @@
+import { env } from '@/infra/config/env'
+import { SecurityService } from '@olympus/lib-hera'
 import { z } from 'zod'
-const decodeBasicAuth = (auth: string) => {
-  const parts = auth.split(' ')
-  if (parts.length !== 2) {
-    return null
-  }
-  const [scheme, base64Credentials] = parts
-  if (scheme.toLowerCase() !== 'basic') {
-    return null
-  }
-  const credentials = Buffer.from(base64Credentials, 'base64').toString('utf8')
-  const partsDecrypted = credentials.split(':')
-  if (partsDecrypted.length !== 2) {
-    return null
-  }
-  const [username, password] = partsDecrypted
 
-  return { username, password }
-}
+const security = new SecurityService()
 
 export const authDto = z
   .object({
@@ -25,15 +11,21 @@ export const authDto = z
         required_error: 'Não foi possível encontrar o campo authorization',
       })
       .refine(
-        (value) => {
-          const decoded = decodeBasicAuth(value)
-          return !!decoded
+        (auth) => {
+          const decoded = security.bearerToken({ auth, secret: env.jwtSecret })
+          return decoded
         },
         { message: 'O campo authorization está inválido' },
       ),
   })
-  .transform(({ authorization }) => {
-    const decoded = decodeBasicAuth(authorization)
-    return decoded as { username: string; password: string }
+  .transform(({ authorization: auth }) => {
+    const decoded = security.bearerToken<{
+      id: string
+      type: 'ACCESS_TOKEN' | 'REFRESH_TOKEN'
+    }>({ auth, secret: env.jwtSecret })
+    return {
+      id: decoded.id,
+      type: decoded.type,
+    }
   })
 export type IAuthDto = z.output<typeof authDto>

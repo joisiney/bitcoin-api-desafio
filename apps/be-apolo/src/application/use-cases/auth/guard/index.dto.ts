@@ -1,4 +1,4 @@
 export interface IAuthGuardUseCase {
-  username: string
-  password: string
+  id: string
+  type: 'ACCESS_TOKEN' | 'REFRESH_TOKEN'
 }

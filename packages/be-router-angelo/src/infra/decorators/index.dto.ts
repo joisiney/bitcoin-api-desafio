@@ -7,7 +7,8 @@ export namespace IAngelo {
     dto?: z.ZodObject<any> | z.ZodEffects<any, any>
   }
   export type Guard = {
-    dep: string
+    dep?: string
     dto: z.ZodObject<any> | z.ZodEffects<any, any>
+    key: string
   }
 }

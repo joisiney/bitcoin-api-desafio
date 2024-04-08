@@ -1,3 +1,4 @@
+import { InternalServerException } from '@olympus/lib-hera'
 import { BaseAppAdapter } from '.'
 import { IAngelo } from './index.dto'
 
@@ -20,7 +21,7 @@ export class FastifyAdapter<
           const { code, data } = await this.execute(request, reply, props)
           return reply.status(code).send(data)
         }
-        throw new Error('Method not found')
+        throw new InternalServerException('Method not found')
       } catch (error) {
         const dataError = await this.errorPipeline.execute(
           { name: this.constructor.name },

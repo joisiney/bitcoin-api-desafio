@@ -1,7 +1,8 @@
 import { TransactionCreateUseCase } from '@/application/use-cases/transactions/create/index.use-case'
 
 import { Injectable } from '@olympus/be-di-ilitia'
-import { Controller, Route } from '@olympus/be-router-angelo'
+import { Controller, Guard, Route } from '@olympus/be-router-angelo'
+import { authDto } from '../auth/dto/auth.dto'
 import { ITransactionCreateDto, transactionCreateDto } from './dto/create.dto'
 
 @Controller('/olympus')
@@ -11,11 +12,13 @@ import { ITransactionCreateDto, transactionCreateDto } from './dto/create.dto'
 export class TransactionController {
   constructor(private createUseCase: TransactionCreateUseCase) {}
 
+  @Guard({ dep: 'AuthGuardUseCase', dto: authDto, key: 'auth' })
   @Route({ method: 'POST', url: '/transaction', dto: transactionCreateDto })
   async save(data: ITransactionCreateDto) {
     return this.createUseCase.execute({
-      ...data,
-      customerId: 'fpxqiasd2mc258ntkecu2h1c',
+      type: data.type,
+      totalInCents: data.totalInCents,
+      customerId: data.auth.id,
     })
   }
 }

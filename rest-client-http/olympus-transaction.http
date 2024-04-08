@@ -1,8 +1,9 @@
 ### 1. Criar usuário
 POST {{host}}/olympus/transaction HTTP/1.1
 content-type: application/json
+authorization: {{token}}
 
 {
     "type": "income",
-    "totalInCents": "1"
+    "totalInCents": 1
 }

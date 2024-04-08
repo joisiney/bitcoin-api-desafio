@@ -1,10 +1,12 @@
 import { IAngelo } from './index.dto'
 
-export function Guard({ dep }: IAngelo.Guard) {
+export function Guard({ dep, dto, key }: IAngelo.Guard) {
   return function (target: any, propertyKey: string, descriptor: any) {
-    const history = Reflect.getMetadata('guard', target.constructor) || []
-    history.push({ dep, propertyKey })
-    Reflect.defineMetadata('guard', history, target.constructor)
+    Reflect.defineMetadata(
+      'guard',
+      { dep, dto, key, propertyKey },
+      target.constructor,
+    )
     return descriptor
   }
 }

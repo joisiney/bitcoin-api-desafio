@@ -9,7 +9,6 @@ export class TransactionCreateUseCase {
   ) {}
 
   async execute(props: ICreateUseCase) {
-    // Pegar o balanço do customerId e atualizar o balanceInCents se for income ou charge
     const news = await this.transactionRepository.create({
       ...props,
       balanceInCents: 1,
