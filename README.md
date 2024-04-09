@@ -5,13 +5,22 @@
 <img alt="Bitcoin Api" src="https://images.unsplash.com/photo-1627538924152-26631c2da638?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800" />
 </p>
 
-## 🥶 Sobre o projeto
+## Observação Importante
+Tenho trabalhado em um projeto de Injeção de Dependência (DI) há algum tempo e realmente gostei da experiência com Decorators e monorepo. Por conta disso, criei outros dois repositórios bastante similares a este aqui há algum tempo.
 
-Dividi este workspace em 1 aplicativos e 6 bibliotecas. Esta é uma arquitetura robusta projetada para escalar tanto na vertical, com poucos projetos, porém muito grandes (monolito), quanto na horizontal, com diversos microprojetos, todos integrados com o Apache Kafka e com o máximo de reaproveitamento de código entre cada aplicativo.
+1. **Motivação Principal para o Uso de DI:** Este repositório [DI + SNS + SQS + DECORATOR](https://github.com/joisiney/sqs-sns-localstak-decorator-clean-code-nodejs) foi a inspiração inicial para este boilerplate.
+   
+2. **Outro Projeto Relacionado:** Também desenvolvi outro projeto utilizando [DI + KAFKA + SOCKET.IO](https://github.com/joisiney/monorepo-tsx-decorator-kafka-socket-io). A partir desses dois repositórios, criei uma espécie de boilerplate. A ideia era modularizá-lo e disponibilizá-lo via yarn/npm, mas acredito que ainda preciso amadurecer melhor essa ideia.
+
+Para iniciar este projeto, clonei meu monorepo de `DI + KAFKA + SOCKET.IO`, que segue um padrão de projeto que me agrada bastante, pois utiliza todos os princípios SOLID de forma muito agradável. Dentro do monorepo, a pasta `/packages` contém códigos que pretendo reutilizar em novos projetos, enquanto a pasta `/apps` contém os novos projetos. Com o objetivo de criar uma API para Bitcoin, desenvolvi uma API do zero dentro da pasta `/apps/be-apolo`, utilizando minhas próprias bibliotecas pessoais.
+
+## 🥶 Contexto dado, vamos falar sobre o projeto
+
+Dividi este workspace em 1 aplicativos e 6 bibliotecas. Esta é uma arquitetura robusta projetada para escalar tanto na vertical, com poucos projetos, porém muito grandes (monolito), quanto na horizontal, com diversos microprojetos, todos integrados com o máximo de reaproveitamento de código entre cada aplicativo seja frontend ou backend.
 
 ## Aplicativos:
 
-1. **app/be-apolo:** Esta API REST é responsável pela consumir e envio de notícias para a fila do Apache Kafka. Além disso, este servidor também é responsável pelo gerenciamento do CRUD de usuários. [mais info](apps/be-apolo/readme.md)
+1. **app/be-apolo:** Esta API REST é a peça-chave para gerenciar o CRUD de usuários, autenticação, contas, depósitos, saldos, cotações e compras de Bitcoin.. [mais info](apps/be-apolo/readme.md)
 
 ## Bibliotecas:
 
@@ -73,7 +82,7 @@ Para inicializar o **backend**, basta seguir as instruções abaixo:
 
 1. Clone o repositório:
    ```sh
-   git clone XYZ
+   git@github.com:joisiney/bitcoin-api-desafio.git
    ```
 
 2. Instale os módulos do YARN:
@@ -81,7 +90,7 @@ Para inicializar o **backend**, basta seguir as instruções abaixo:
    yarn install
    ```
 
-3. Inicialize o **mysql** através do Docker Compose:
+3. Inicialize o **postgres** através do Docker Compose:
    ```sh
    yarn apolo:docker-up
    ```
@@ -99,15 +108,20 @@ Para inicializar o **backend**, basta seguir as instruções abaixo:
    ```
    Se tudo ocorrer conforme o esperado, você deverá visualizar o seguinte **log** em seu terminal:
 ```bash
-┌─────────┬──────────────────┬──────────┬─────────────────────┐
-│ (index) │    CONTROLLER    │  METHOD  │        LINK         │
-├─────────┼──────────────────┼──────────┼─────────────────────┤
-│    0    │ 'UserController' │  'POST'  │   '/olympus/user'   │
-│    1    │ 'UserController' │  'GET'   │ '/olympus/user/:id' │
-│    2    │ 'UserController' │  'GET'   │   '/olympus/user'   │
-│    3    │ 'UserController' │ 'DELETE' │ '/olympus/user/:id' │
-│    4    │ 'UserController' │  'PUT'   │ '/olympus/user/:id' │
-└─────────┴──────────────────┴──────────┴─────────────────────┘
+┌─────────┬─────────────────────────┬─────────────────────┬────────────┬────────────────────────────────────────────┐
+│ (index) │        className        │     classMethod     │ httpMethod │                    url                     │
+├─────────┼─────────────────────────┼─────────────────────┼────────────┼────────────────────────────────────────────┤
+│    0    │    'UserController'     │       'save'        │   'POST'   │              '/olympus/user'               │
+│    1    │    'UserController'     │     'findById'      │   'GET'    │            '/olympus/user/:id'             │
+│    2    │    'UserController'     │      'findAll'      │   'GET'    │              '/olympus/user'               │
+│    3    │    'UserController'     │    'removeById'     │  'DELETE'  │            '/olympus/user/:id'             │
+│    4    │    'UserController'     │    'updateById'     │   'PUT'    │            '/olympus/user/:id'             │
+│    5    │    'AuthController'     │      'session'      │   'GET'    │          '/olympus/auth/sign-in'           │
+│    6    │ 'TransactionController' │       'save'        │   'POST'   │           '/olympus/transaction'           │
+│    7    │ 'TransactionController' │ 'balanceByCustomer' │   'GET'    │ '/olympus/transaction/balance-by-customer' │
+│    8    │   'BitcoinController'   │     'quotation'     │   'GET'    │        '/olympus/bitcoin/quotation'        │
+│    9    │   'BitcoinController'   │        'buy'        │   'POST'   │           '/olympus/bitcoin/buy'           │
+└─────────┴─────────────────────────┴─────────────────────┴────────────┴────────────────────────────────────────────┘
 Server listening at http://[::1]:3001 🚀🚀
 ```
    O objetivo deste **log** é apresentar todas as rotas criadas, juntamente com seus respectivos métodos de acesso. Se você utiliza o VSCode e tem o hábito de usar o plugin `REST Client` na pasta `/rest-client-http`, todos os métodos estão cadastrados e atualizados lá 😜.
@@ -128,23 +142,31 @@ O principal objetivo dos comandos no arquivo package.json é criar atalhos para 
 | `yarn dev`               | Inicia todos os projetos em modo de `Hot reload`                                   |
 | `yarn apolo:dev`         | Inicia o Apolo em modo de `Hot reload`                                             |
 | `yarn clean`             | Remove todas as pastas `dist`                                                      |
-| `yarn apolo:docker-up`   | Levanta o banco `MySQL`                                                            |
-| `yarn apolo:docker-down` | Derruba o banco `MySQL`                                                            |
-
-
-
-## Usage
-
-?
+| `yarn apolo:docker-up`   | Levanta o banco `Postgres`                                                            |
+| `yarn apolo:docker-down` | Derruba o banco `Postgres`                                                            |
 
 ## Roadmap
 
-- [x] Criar CRUD de usuário
-  - [ ] Teste unitário
-
-<p align="center">
-<img alt="Olympus News" src="https://res.cloudinary.com/dmoi0mmuj/image/upload/v1707882909/github/Captura_de_Tela_2024-02-14_a%CC%80s_00.54.55_ppj0fd.png" />
-</p>
-
-## Vídeo demonstrando a funcionalidade implementada em pleno funcionamento.
-<a href="https://vimeo.com/manage/videos/915146731/3d16dbfe16?extension_recording=true" target="_blank">Link de apresentação simples</a>
+- [x] **Database**
+   - [x] Configurar estrutura Docker do PostgreSQL com Drizzle.
+- [x] **Contas**
+   - [x] Permitir cadastro (nome, email e senha) e login com token JWT.
+   - [x] Exigir autenticação para todos os demais endpoints.
+- [x] **Depósitos**
+   - [x] Permitir depósitos de valores em reais na plataforma a qualquer momento (apenas inserção do valor na conta, sem transferência real de valores).
+   - [x] Enviar email de confirmação informando o valor depositado.
+- [x] **Saldo**
+   - [x] Consultar saldo disponível em reais na conta do cliente.
+- [x] **Cotação**
+   - [x] Visualizar a cotação atual do Bitcoin para compra e venda.
+- [x] **Compra**
+   - [x] Realizar compras de bitcoins usando saldo disponível na conta, com conversão do valor em reais pela cotação de venda.
+   - [x] Bloquear compra se o cliente não tiver saldo suficiente.
+   - [x] Enviar email informando o valor investido em R$ e o valor comprado de BTC.
+- [ ] **Teste Unitário**
+   - Faltou implementar, considerando a abordagem de DDD.
+- [ ] **Cache com Redis**
+   - Pendente, mas planejado na pipeline.
+- [ ] **Fila de Disparo de Email**
+   - Implementar utilizando `SQS` + `SOCKET.IO` para notificar o usuário.
+   - Pendente, mas planejado na pipeline.
