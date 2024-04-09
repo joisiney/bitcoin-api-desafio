@@ -6,7 +6,7 @@ export namespace IMailService {
     from: string
     to: string
     subject: string
-    template: 'NewDeposit'
+    template: 'NewDeposit' | 'NewInvestment'
     body?: any
   }
 

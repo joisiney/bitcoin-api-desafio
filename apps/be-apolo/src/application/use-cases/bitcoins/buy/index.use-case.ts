@@ -2,16 +2,23 @@ import { IBitcoinRepository } from '@/infra/repositories/bitcoin/index.dto'
 import { ITransactionRepository } from '@/infra/repositories/transaction/index.dto'
 import { Injectable } from '@olympus/be-di-ilitia'
 import { BadRequestException, IBitcoinGateway } from '@olympus/lib-hera'
+import { IMailService } from '@olympus/lib-hera/src/application/services/mail/index.dto'
 import { IBuyUseCase } from './index.dto'
 
 @Injectable({
-  dep: ['BITCOIN_REPOSITORY', 'TRANSACTION_REPOSITORY', 'BITCOIN_GATEWAY'],
+  dep: [
+    'BITCOIN_REPOSITORY',
+    'TRANSACTION_REPOSITORY',
+    'BITCOIN_GATEWAY',
+    'MAIL_SERVICE',
+  ],
 })
 export class BitcoinBuyUseCase {
   constructor(
     public readonly bitcoinRepository: IBitcoinRepository.Implements,
     private readonly transactionRepository: ITransactionRepository.Implements,
     private readonly bitcoinGateway: IBitcoinGateway.Implements,
+    private readonly mailService: IMailService.Implements,
   ) {}
 
   async execute(props: IBuyUseCase) {
@@ -49,6 +56,24 @@ export class BitcoinBuyUseCase {
     })
     if (newTransactionBitcoin.isError)
       return newTransactionBitcoin.launchError()
+
+    // Notify transaction by email
+    await this.mailService.send({
+      from: 'onboarding@resend.dev',
+      to: 'olympusbitcoin@gmail.com',
+      subject: `Investimento de ${(props.totalInCents / 100).toLocaleString(
+        'pt-BR',
+        {
+          style: 'currency',
+          currency: 'BRL',
+        },
+      )} realizado`,
+      template: 'NewInvestment',
+      body: {
+        deposit: props.totalInCents,
+        btc,
+      },
+    })
 
     return true
   }

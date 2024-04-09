@@ -9,5 +9,5 @@ content-type: application/json
 authorization: {{token}}
 
 {
-    "totalInCents": "102"
+    "totalInCents": "100"
 }
