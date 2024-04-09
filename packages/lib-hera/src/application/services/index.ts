@@ -1,3 +1,4 @@
+export * from './mail/resend.service'
 export * from './pipeline.service'
 export * from './security/index.dto'
 export * from './security/index.service'

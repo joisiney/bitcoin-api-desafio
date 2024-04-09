@@ -31,7 +31,11 @@ import {
   fastifyResTriggerControllerPipe,
   routesInfo,
 } from '@olympus/be-router-angelo'
-import { BitcoinGateway, SecurityService } from '@olympus/lib-hera'
+import {
+  BitcoinGateway,
+  ResendService,
+  SecurityService,
+} from '@olympus/lib-hera'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import 'reflect-metadata'
 import { env } from './config/env'
@@ -84,6 +88,10 @@ AddingRouteInScriptSingleton.getInstance(fastifyRouterAdapter)
   {
     // SERVICES
     InjectorFactory.resolve(SecurityService, { name: 'SECURITY_SERVICE' })
+    InjectorFactory.resolve(ResendService, {
+      name: 'MAIL_SERVICE',
+      defaultArgs: { apiKey: env.resendApiKey },
+    })
 
     // GATEWAYS
     InjectorFactory.resolve(BitcoinGateway, { name: 'BITCOIN_GATEWAY' })
