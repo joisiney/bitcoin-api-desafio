@@ -170,3 +170,6 @@ O principal objetivo dos comandos no arquivo package.json é criar atalhos para 
 - [ ] **Fila de Disparo de Email**
    - Implementar utilizando `SQS` + `SOCKET.IO` para notificar o usuário.
    - Pendente, mas planejado na pipeline.
+
+## Vídeo demonstrando a funcionalidade implementada em pleno funcionamento.
+<a href="https://vimeo.com/manage/videos/932613884/36f95a1091?extension_recording=true" target="_blank">Link de apresentação simples</a>
