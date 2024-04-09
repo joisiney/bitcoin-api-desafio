@@ -2,11 +2,11 @@ import { db } from '@/infra/database/drizzle/connection'
 import { Injectable } from '@olympus/be-di-ilitia'
 import { BitcoinEntity, IBitcoinDto } from '@olympus/domain-ceos'
 import {
-  Either,
-  InternalServerException,
-  Left,
-  NotFoundException,
-  Right,
+    Either,
+    InternalServerException,
+    Left,
+    NotFoundException,
+    Right,
 } from '@olympus/lib-hera'
 import { bitcoins as bitcoinsEntity } from '../../database/drizzle/schema'
 import { IBitcoinRepository } from './index.dto'
@@ -23,8 +23,8 @@ export class BitcoinRepositoryTypeDrizzle
       type: props.type == 'income' ? 'income' : 'charge',
       totalInCents: props.totalInCents,
       balanceTotalInCents: props.balanceTotalInCents,
-      btcInCents: props.btcInCents,
-      balanceBtcInCents: props.balanceBtcInCents,
+      btc: props.btc,
+      balanceBtc: props.balanceBtc,
     })
 
     if (!bitcoin) {

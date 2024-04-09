@@ -23,9 +23,8 @@ export const bitcoins = pgTable('bitcoins', {
     .notNull(),
   type: bitcoinTypeEnum('type').default('income').notNull(),
   totalInCents: integer('total_in_cents').notNull(),
-  balanceTotalInCents: integer('balance_total_in_cents').notNull(),
-  btcInCents: decimal('btc_in_cents').notNull(),
-  balanceBtcInCents: decimal('balance_btc_in_cents').notNull(),
+  btc: decimal('btc').notNull(),
+  balanceBtc: decimal('balance_btc').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 

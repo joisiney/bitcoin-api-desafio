@@ -18,8 +18,8 @@ export class BitcoinEntity {
     return this.data.balanceTotalInCents
   }
 
-  get balanceBtcInCents() {
-    return this.data.balanceBtcInCents
+  get balanceBtc() {
+    return this.data.balanceBtc
   }
 
   get db() {

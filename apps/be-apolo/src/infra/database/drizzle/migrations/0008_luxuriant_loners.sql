@@ -1,0 +1,1 @@
+ALTER TABLE "bitcoins" DROP COLUMN IF EXISTS "balance_total_in_cents";

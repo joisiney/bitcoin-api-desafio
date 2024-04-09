@@ -3,8 +3,7 @@ export interface IBitcoinDto {
   customerId: string
   type: string
   totalInCents: number
-  balanceTotalInCents: number
-  btcInCents: number
-  balanceBtcInCents: number
+  btc: number
+  balanceBtc: number
   createdAt: Date
 }

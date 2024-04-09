@@ -20,11 +20,11 @@ export class BitcoinBuyUseCase {
     if (bitcoinResponse.isError) {
       bitcoinResponse.launchError()
     }
-    const btcInCents = props.totalInCents / (bitcoinResponse.value.buy * 100)
+    const btc = props.totalInCents / (bitcoinResponse.value.buy * 100)
 
-    const balanceBtcInCents = await this.getBalance({
+    const balanceBtc = await this.getBalance({
       ...props,
-      btcInCents: btcInCents,
+      btc: btc,
     })
 
     // Data for buy
@@ -32,9 +32,8 @@ export class BitcoinBuyUseCase {
       customerId: props.customerId,
       type: props.type,
       totalInCents: props.totalInCents,
-      btcInCents: btcInCents,
-      balanceTotalInCents: balanceTotalInCents - props.totalInCents,
-      balanceBtcInCents: balanceBtcInCents!,
+      btc: btc,
+      balanceBtc: balanceBtc!,
     }
 
     const newBitcoinTransaction = await this.bitcoinRepository.buy(buyData)
@@ -43,7 +42,7 @@ export class BitcoinBuyUseCase {
 
     // Charge transaction value
     const newTransactionBitcoin = await this.transactionRepository.create({
-      balanceInCents: buyData.balanceTotalInCents,
+      balanceInCents: balanceTotalInCents - props.totalInCents,
       type: 'charge',
       customerId: props.customerId,
       totalInCents: props.totalInCents,
@@ -78,17 +77,16 @@ export class BitcoinBuyUseCase {
   private async getBalance(props: IBuyUseCase) {
     const lastBalance = await this.bitcoinRepository.balance(props.customerId)
 
-    let balanceBtcInCents
+    let balanceBtc
     if (lastBalance.isSuccess) {
-      balanceBtcInCents =
+      balanceBtc =
         props.type == 'income'
-          ? lastBalance.value.balanceBtcInCents + props.btcInCents!
-          : lastBalance.value.balanceBtcInCents - props.btcInCents!
+          ? Number(lastBalance.value.balanceBtc) + Number(props.btc)!
+          : Number(lastBalance.value.balanceBtc) - Number(props.btc)!
     } else {
-      balanceBtcInCents =
-        props.type == 'income' ? props.btcInCents : props.btcInCents! * -1
+      balanceBtc = props.type == 'income' ? props.btc : props.btc! * -1
     }
 
-    return balanceBtcInCents
+    return balanceBtc
   }
 }
